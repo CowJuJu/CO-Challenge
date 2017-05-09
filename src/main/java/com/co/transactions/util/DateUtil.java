@@ -7,7 +7,7 @@ import java.util.Date;
 public class DateUtil {
 	
 	@SuppressWarnings("deprecation")
-	public static boolean isSameYearAndMonth(String firstDate, String secondDate) throws ParseException{
+	public boolean isSameYearAndMonth(String firstDate, String secondDate) throws ParseException{
 		
 		SimpleDateFormat correctFormat = new SimpleDateFormat("yyyy-mm-dd");
 		

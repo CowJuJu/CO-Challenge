@@ -26,7 +26,7 @@ public class TransactionLogin {
 		
 	    RestTemplate loginTemplate = new RestTemplate();
 	    
-	   String input = "{\"email\":\"interview@levelmoney.com\",\"password\":\"password2\",\"args\":{\"api-token\":\"AppTokenForInterview\"}}";
+	    String input = "{\"email\":\"interview@levelmoney.com\",\"password\":\"password2\",\"args\":{\"api-token\":\"AppTokenForInterview\"}}";
 
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
@@ -67,29 +67,20 @@ public class TransactionLogin {
 	    
 	    Transactions transactions = new Transactions();
 	    List<Transaction> transactionList = new ArrayList<Transaction>();
-	    
+	    Transaction transaction = null;
 	    for(int i = 0; i < transactionCallResponseArray.size();i++) {
 	    	JsonElement currentElement = transactionCallResponseArray.get(i);
 	    	JsonObject currentObject = currentElement.getAsJsonObject();
-	    	Transaction transaction = new Transaction();
+	    	transaction = new Transaction();
 	    	
-	    	String accountId = currentObject.get("account-id").getAsString();
-	    	double amount = currentObject.get("amount").getAsDouble();
-	    	String categorization = currentObject.get("categorization").getAsString();
-	    	String clearDate = currentObject.get("clear-date").getAsString();
-	    	String merchant = currentObject.get("merchant").getAsString();
-	    	boolean isPending = currentObject.get("is-pending").getAsBoolean();
-	    	String transactionId = currentObject.get("transaction-id").getAsString();
-	    	String transactionTime = currentObject.get("transaction-time").getAsString();
-	    	
-	    	transaction.setAccountId(accountId);
-	    	transaction.setAmount(amount);
-	    	transaction.setCategorization(categorization);
-	    	transaction.setClearDate(clearDate);
-	    	transaction.setMerchant(merchant);
-	    	transaction.setPending(isPending);
-	    	transaction.setTransactionId(transactionId);
-	    	transaction.setTransactionTime(transactionTime);
+	    	transaction.setAccountId(currentObject.get("account-id").getAsString());
+	    	transaction.setAmount(currentObject.get("amount").getAsDouble());
+	    	transaction.setCategorization(currentObject.get("categorization").getAsString());
+	    	transaction.setClearDate(currentObject.get("clear-date").getAsString());
+	    	transaction.setMerchant(currentObject.get("merchant").getAsString());
+	    	transaction.setPending(currentObject.get("is-pending").getAsBoolean());
+	    	transaction.setTransactionId(currentObject.get("transaction-id").getAsString());
+	    	transaction.setTransactionTime(currentObject.get("transaction-time").getAsString());
 	    	transactionList.add(transaction);
 	    	System.out.println(transaction.getTransactionTime() +" "+ transactionList.size());
 	    }
