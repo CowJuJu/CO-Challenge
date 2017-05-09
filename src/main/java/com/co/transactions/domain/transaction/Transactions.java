@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Transactions {
 	
-	List<Transaction> transactions;
+	private List<Transaction> transactions;
 
 	public List<Transaction> getTransactions() {
 		return transactions;

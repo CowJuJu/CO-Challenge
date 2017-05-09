@@ -1,9 +1,7 @@
 package com.co.transactions;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.http.HttpEntity;
@@ -15,15 +13,12 @@ import org.springframework.web.client.RestTemplate;
 import com.co.transactions.domain.login.LoginResponse;
 import com.co.transactions.domain.transaction.Transaction;
 import com.co.transactions.domain.transaction.Transactions;
-import com.co.transactions.util.DateUtil;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class TransactionLogin {
-	
-	static Transaction transaction = new Transaction();
 	
 	public static void main(String[] args) {
 		final String loginUrl = "https://2016.api.levelmoney.com/api/v2/core/login";
@@ -76,46 +71,60 @@ public class TransactionLogin {
 	    for(int i = 0; i < transactionCallResponseArray.size();i++) {
 	    	JsonElement currentElement = transactionCallResponseArray.get(i);
 	    	JsonObject currentObject = currentElement.getAsJsonObject();
-	    	transaction.setAccountId(currentObject.get("account-id").getAsString());
-	    	transaction.setAmount(currentObject.get("amount").getAsDouble());
-	    	transaction.setCategorization(currentObject.get("categorization").getAsString());
-	    	transaction.setClearDate(currentObject.get("clear-date").getAsString());
-	    	transaction.setMerchant(currentObject.get("merchant").getAsString());
-	    	transaction.setPending(currentObject.get("is-pending").getAsBoolean());
-	    	transaction.setTransactionId(currentObject.get("transaction-id").getAsString());
-	    	transaction.setTransactionTime(currentObject.get("transaction-time").getAsString());
-	    	//System.out.println(transaction.getTransactionTime());
+	    	Transaction transaction = new Transaction();
+	    	
+	    	String accountId = currentObject.get("account-id").getAsString();
+	    	double amount = currentObject.get("amount").getAsDouble();
+	    	String categorization = currentObject.get("categorization").getAsString();
+	    	String clearDate = currentObject.get("clear-date").getAsString();
+	    	String merchant = currentObject.get("merchant").getAsString();
+	    	boolean isPending = currentObject.get("is-pending").getAsBoolean();
+	    	String transactionId = currentObject.get("transaction-id").getAsString();
+	    	String transactionTime = currentObject.get("transaction-time").getAsString();
+	    	
+	    	transaction.setAccountId(accountId);
+	    	transaction.setAmount(amount);
+	    	transaction.setCategorization(categorization);
+	    	transaction.setClearDate(clearDate);
+	    	transaction.setMerchant(merchant);
+	    	transaction.setPending(isPending);
+	    	transaction.setTransactionId(transactionId);
+	    	transaction.setTransactionTime(transactionTime);
 	    	transactionList.add(transaction);
+	    	System.out.println(transaction.getTransactionTime() +" "+ transactionList.size());
 	    }
 	    transactions.setTransactions(transactionList);
-	    StringBuffer firstDate = new StringBuffer();
-	    StringBuffer secondDate = new StringBuffer();
-	    boolean isSameMonth = false;
-	    for(int i = 0; i < transactions.getTransactions().size();i++){
-	    	if(i == 0){
-	    		firstDate.append(transactions.getTransactions().get(i).getTransactionTime());
-	    	} else if(firstDate.toString() != null && i%2==1){
-	    		firstDate.delete(0,firstDate.length());
-	    		firstDate.append(transactions.getTransactions().get(i).getTransactionTime());
-	    		System.out.println(firstDate.toString());
-	    	} else if(secondDate.toString() != null && i%2==0) {
-	    		secondDate.delete(0, secondDate.length());
-	    		secondDate.append(transactions.getTransactions().get(i).getTransactionTime());
-	    		System.out.println(secondDate.toString());
-	    	} else {
-	    		System.out.println("Error in calculating Amount");
-	    	}
-	    	try {
-	    		if(i > 1){
-	    			isSameMonth = DateUtil.isSameYearAndMonth(firstDate.toString(),secondDate.toString());
-	    			//System.out.println(isSameMonth);
-	    		} else {
-	    			continue;
-	    		}
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
+	    for(int i = 0; i < transactionList.size();i++) {
+	    	System.out.println(transactionList.get(1).getTransactionTime());
 	    }
+//	    String firstDate = new String();
+//	    String secondDate = new String();
+//	    boolean isSameMonth = false;
+//	    for(int i = 0; i < transactions.getTransactions().size();i++){
+//	    	if(i == 0){
+//	    		firstDate= transactions.getTransactions().get(i).getTransactionTime();
+//	    	} else if(firstDate.toString() != null && i%2==1){
+//	    		//firstDate.delete(0,firstDate.length());
+//	    		firstDate = transactions.getTransactions().get(i).getTransactionTime();
+//	    		//System.out.println("Inside FirstDate"+firstDate.toString());
+//	    	} else if(secondDate.toString() != null && i%2==0) {
+//	    		//secondDate0, secondDate.length());
+//	    		secondDate = transactions.getTransactions().get(i).getTransactionTime();
+//	    		//System.out.println("Inside SecondDate"+secondDate.toString());
+//	    	} else {
+//	    		System.out.println("Error in calculating Amount");
+//	    	}
+//	    	try {
+//	    		if(i > 1){
+//	    			isSameMonth = DateUtil.isSameYearAndMonth(firstDate.toString(),secondDate.toString());
+//	    			//System.out.println(isSameMonth);
+//	    		} else {
+//	    			continue;
+//	    		}
+//			} catch (ParseException e) {
+//				e.printStackTrace();
+//			}
+//	    }
 	}
 
 }
