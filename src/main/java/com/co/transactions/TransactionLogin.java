@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.co.transactions.domain.Login.LoginResponse;
+import com.co.transactions.domain.login.LoginResponse;
 import com.co.transactions.domain.transaction.Transaction;
 import com.co.transactions.domain.transaction.Transactions;
 import com.co.transactions.util.DateUtil;

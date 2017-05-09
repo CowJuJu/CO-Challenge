@@ -1,4 +1,4 @@
-package com.co.transactions.domain.Login;
+package com.co.transactions.domain.login;
 
 public class LoginRequest {
 	
